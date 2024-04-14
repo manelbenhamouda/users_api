@@ -18,14 +18,17 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-$router->get('users',  ['uses' => 'UserController@index']);
+  $router->get('users',  ['uses' => 'UserController@index']);
 
-$router->get('users/{id}', ['uses' => 'UserController@show']);
+  $router->get('users/{id}', ['uses' => 'UserController@show']);
 
-$router->post('users', ['uses' => 'UserController@store']);
+  $router->post('users', ['uses' => 'UserController@store']);
 
-$router->put('users/{id}', ['uses' => 'UserController@update']);
+  $router->put('users/{id}', ['uses' => 'UserController@update']);
 
-$router->delete('users/{id}', ['uses' => 'UserController@destroy']);
+  $router->delete('users/{id}', ['uses' => 'UserController@destroy']);
 
+  $router->get('documentation', function () {
+    return response()->json(json_decode(file_get_contents(storage_path('api-docs/openapi.json')), true));
+  });
 });
